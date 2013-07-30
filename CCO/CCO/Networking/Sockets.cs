@@ -38,11 +38,11 @@ namespace CCO.Networking
             }
 
         }
-        public HybridSocket(string IP, ushort port)
+        public HybridSocket(ushort port)
         {
             Connections = new Dictionary<string, byte>();
             _socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-            _socket.Bind(new IPEndPoint(IPAddress.Parse(IP), port));
+            _socket.Bind(new IPEndPoint(IPAddress.Any, port));
             _socket.Listen(500);
             _socket.BeginAccept(AcceptConnections, new nLink());
         }
