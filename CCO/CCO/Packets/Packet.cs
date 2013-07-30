@@ -37,8 +37,8 @@ namespace CCO.Packets
             WriteBytes(ASCIIEncoding.ASCII.GetBytes(A), Offset, ref Destination);
         }
     }
-    public abstract class Packet
+    public interface Packet
     {
-        public byte[] Data { get; set; }
+        byte[] Data { get; set; }
     }
 }

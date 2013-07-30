@@ -8,7 +8,7 @@ namespace CCO.Data
 {
     public class Database
     {
-        public static string GameServerIP = "192.168.0.197".PadRight(16,'\0');
+        public static string GameServerIP = "192.168.0.197";
         public static ushort LoginPort = 9958;
         public static ushort GamePort = 5816;
         public static bool ValidadeLogin(ref string Account, byte[] HashedPassword)
