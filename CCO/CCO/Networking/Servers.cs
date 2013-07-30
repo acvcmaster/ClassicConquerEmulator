@@ -1,9 +1,9 @@
 ﻿using CCO;
 using System;
+using CCO.Handlers;
+using CCO.Cryptography;
+using System.Net.Sockets;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CCO.Networking
 {
@@ -13,6 +13,7 @@ namespace CCO.Networking
     }
     public class LoginServer
     {
+        public Dictionary<Socket, Client> ConnectedClients = new Dictionary<Socket, Client>();
         ushort port = 0;
         public ushort Port
         {
@@ -22,6 +23,7 @@ namespace CCO.Networking
         HybridSocket Listener;
         public LoginServer(ushort _port)
         {
+            AuthCryptography.PrepareAuthCryptography();
             Port = _port;
             Listener = new HybridSocket(Port);
             Program.Report("Login server listening in all network interfaces on port " + Port + ".",
@@ -36,6 +38,7 @@ namespace CCO.Networking
 #if DEBUG
             Program.Report("Data recieved!", ConsoleColor.Green, ReportType.Networking);
 #endif
+            AuthHandler.Handle(ConnectedClients[arg2._socket], arg1);
         }
 
         void Listener_AnnounceDisconnection(nLink obj)
@@ -47,6 +50,12 @@ namespace CCO.Networking
 #if DEBUG
             Program.Report("Connection recieved!", ConsoleColor.Green, ReportType.Networking);
 #endif
+            if (!ConnectedClients.ContainsKey(obj._socket))
+            {
+                Client Connecting = new Client();
+                Connecting.InnerSocket = obj._socket;
+                ConnectedClients.Add(obj._socket, Connecting);
+            }
         }
     }
 }

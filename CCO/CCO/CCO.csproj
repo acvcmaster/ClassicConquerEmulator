@@ -41,6 +41,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Handlers\AuthHandler.cs" />
+    <Compile Include="Networking\Client.cs" />
+    <Compile Include="Cryptography\Auth.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Networking\Servers.cs" />
     <Compile Include="Networking\Sockets.cs" />

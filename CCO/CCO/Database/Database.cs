@@ -9,6 +9,6 @@ namespace CCO.Data
     public class Database
     {
         public static ushort LoginPort = 9958;
-        public static ushort GamePort = 5000;
+        public static ushort GamePort = 5816;
     }
 }
