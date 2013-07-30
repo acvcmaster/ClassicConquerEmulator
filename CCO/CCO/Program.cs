@@ -26,7 +26,7 @@ namespace CCO
         static void Main(string[] args)
         {
             Servers.Login = new LoginServer(Database.LoginPort);
-
+            Servers.Game = new GameServer(Database.GamePort);
             /* Hang */
             for (; ; ) { }
         }

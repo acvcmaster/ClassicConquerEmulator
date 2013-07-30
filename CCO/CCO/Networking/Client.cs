@@ -2,6 +2,7 @@
 using CCO.Packets;
 using CCO.Cryptography;
 using System.Net.Sockets;
+using System.Text;
 
 namespace CCO.Networking
 {
