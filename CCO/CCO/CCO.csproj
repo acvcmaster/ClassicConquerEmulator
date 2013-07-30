@@ -42,13 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Cryptography\Game.cs" />
+    <Compile Include="Enums.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
+    <Compile Include="Handlers\GameHandler.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="Networking\Client.cs" />
     <Compile Include="Cryptography\Auth.cs" />
     <Compile Include="Database\Database.cs" />
     <Compile Include="Networking\Servers.cs" />
     <Compile Include="Networking\Sockets.cs" />
     <Compile Include="Packets\Auth.cs" />
+    <Compile Include="Packets\Game.cs" />
     <Compile Include="Packets\Packet.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

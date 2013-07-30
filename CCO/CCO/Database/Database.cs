@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Text;
+using CCO.Networking;
 using System.Collections.Generic;
 
 namespace CCO.Data
@@ -43,6 +44,16 @@ namespace CCO.Data
                 S.Close();
                 B.Close();
             }
+        }
+        public static void SetClient(ref Client Cli, string Account)
+        {
+            Cli.AccountName = Account;
+            StreamReader R = new StreamReader("Database/Accounts/" + Account);
+            BinaryReader B = new BinaryReader(R.BaseStream);
+            B.ReadBytes(16);
+            Cli.CharacterName = B.ReadString();
+            B.Close();
+            R.Close();
         }
         public static bool Same(byte[] A, byte[] B)
         {

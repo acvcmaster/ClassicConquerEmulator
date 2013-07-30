@@ -61,6 +61,8 @@ namespace CCO.Networking
     }
     public class GameServer
     {
+        public Dictionary<uint, Client> ConnectedClients = new Dictionary<uint, Client>();
+        public Dictionary<Socket, Client> ConnectedClients2 = new Dictionary<Socket, Client>();
         ushort port = 0;
         public ushort Port
         {
@@ -78,18 +80,40 @@ namespace CCO.Networking
             Listener.AnnounceDisconnection += Listener_AnnounceDisconnection;
             Listener.AnnounceReceive += Listener_AnnounceReceive;
         }
-
         void Listener_AnnounceReceive(byte[] arg1, nLink arg2, byte[] arg3)
         {
 #if DEBUG
             Program.Report("Data recieved! (Game server)", ConsoleColor.Green, ReportType.Networking);
 #endif
+            byte[] Data = new byte[arg1.Length];
+            Buffer.BlockCopy(arg1, 0, Data, 0, arg1.Length);
+            GameCryptography GameCrypt = new GameCryptography();
+            GameCrypt.Decrypt(ref Data);
+            if (BitConverter.ToUInt16(Data, 2) == 1052)
+            {
+                /* Login request */
+                Client Cli;
+                if (ConnectedClients.TryGetValue(BitConverter.ToUInt32(Data, 8), out Cli))
+                {
+                    ConnectedClients2.Add(arg2._socket, Cli);
+                    Cli.InnerSocket = arg2._socket;
+                    if (Cli.CharacterName == "None")
+                    {
+#if DEBUG
+                        Program.Report("Character creation sequence triggered for account '" + Cli.AccountName + "'."
+                            , ConsoleColor.Magenta, ReportType.Networking);
+#endif
+                        Cli.SendGame(new Packets.Chat("SYSTEM", "ALLUSERS", "NEW_ROLE",
+                            ChatColor.Default, ChatType.LoginInformation));
+                    }
+                }
+            }
+            else
+                GameHandler.Handle(ConnectedClients2[arg2._socket], arg1);            
         }
-
         void Listener_AnnounceDisconnection(nLink obj)
         {
         }
-
         void Listener_AnnounceNewConnection(nLink obj)
         {
 #if DEBUG

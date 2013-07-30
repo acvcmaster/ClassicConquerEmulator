@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CCO;
+using System;
 using CCO.Data;
 using CCO.Packets;
 using System.Text;
@@ -50,7 +51,14 @@ namespace CCO.Handlers
                             Program.Report("Login validated for account '"+Account+"'.", ConsoleColor.Green,
                                 ReportType.Networking);
 
-                            AuthResponseOK Response = new AuthResponseOK(1);
+                        roleback:
+                            uint LoginID = Misc.Next();
+                            if (Servers.Game.ConnectedClients.ContainsKey(LoginID))
+                                goto roleback;
+
+                            Servers.Game.ConnectedClients.Add(LoginID, Cli);
+                            Database.SetClient(ref Cli, Account);
+                            AuthResponseOK Response = new AuthResponseOK(LoginID);
                             Cli.SendAuth(Response);
                             
                         }
@@ -59,7 +67,8 @@ namespace CCO.Handlers
                             Program.Report("Database rejected login attempt of account '" + Account + "'.", ConsoleColor.Green,
                                 ReportType.Networking);
                             Servers.Login.ConnectedClients.Remove(Cli.InnerSocket);
-                            /* And then send 'Invalid Auth' response */
+                            /* And then send 'Invalid Auth' response.. actually, just DC.*/
+                            Cli.InnerSocket.Disconnect(false);
                         }
                         break;
                     }
