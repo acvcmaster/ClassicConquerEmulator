@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,14 @@ namespace CCO
         public static uint Next()
         {
             return (uint)R.Next(0, int.MaxValue);
+        }
+        public static void BinaryDump(byte[] Data)
+        {
+            StreamWriter S = new StreamWriter("packetdump");
+            BinaryWriter B = new BinaryWriter(S.BaseStream);
+            B.Write(Data);
+            B.Close();
+            S.Close();
         }
     }
 }

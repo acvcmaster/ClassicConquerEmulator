@@ -37,7 +37,7 @@ namespace CCO.Handlers
                         /* everyone. Not only I'm not going to decrypt it, but I'm also */
                         /* going to hash this password. Of course, a generic password   */
                         /* mechanism will have to be created to allow game master to    */
-                        /* access other people's account if should needed.              */
+                        /* access other people's account should needed.                 */
 #if DEBUG
                         Program.Report("Login data recieved! Attempt to login on account " +
                             "'" + Account + "'. Awaiting database validation.", ConsoleColor.Red,

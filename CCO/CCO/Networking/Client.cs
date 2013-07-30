@@ -22,6 +22,8 @@ namespace CCO.Networking
             byte[] Data = new byte[P.Data.Length];
             Buffer.BlockCopy(P.Data, 0, Data, 0, P.Data.Length);
             PacketCrypt.Encrypt(ref Data);
+            /* Debugged : Problem is not encryption (Maybe I didn't assemble the packet correctly?) */
+            /* Also, the socket is working as well (data is being sent..).. the packet may be wrong */
             InnerSocket.Send(Data, 0, Data.Length, SocketFlags.None);
         }
         public string AccountName = "";

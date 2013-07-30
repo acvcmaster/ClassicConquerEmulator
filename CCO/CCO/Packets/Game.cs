@@ -38,7 +38,6 @@ namespace CCO.Packets
             Writer.WriteByte((byte)Message.Length, Pos, ref _data);
             Pos++;
             Writer.WriteString(Message, Pos, ref _data);
-
         }
     }
 }
