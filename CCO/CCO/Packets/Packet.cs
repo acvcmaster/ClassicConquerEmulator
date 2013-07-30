@@ -37,7 +37,7 @@ namespace CCO.Packets
             WriteBytes(ASCIIEncoding.ASCII.GetBytes(A), Offset, ref Destination);
         }
     }
-    public interface Packet
+    public interface iPacket
     {
         byte[] Data { get; set; }
     }

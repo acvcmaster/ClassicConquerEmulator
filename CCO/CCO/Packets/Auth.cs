@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CCO.Packets
 {
-    public class AuthResponseOK : Packet
+    public class AuthResponseOK : iPacket
     {
         byte[] _data;
         public byte[] Data

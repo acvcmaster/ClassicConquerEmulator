@@ -103,6 +103,7 @@ namespace CCO.Networking
                         Program.Report("Character creation sequence triggered for account '" + Cli.AccountName + "'."
                             , ConsoleColor.Magenta, ReportType.Networking);
 #endif
+#error IS_NOT_WORKING
                         Cli.SendGame(new Packets.Chat("SYSTEM", "ALL_USERS", "NEW_ROLE",
                             ChatColor.Default, ChatType.LoginInformation));
                     }

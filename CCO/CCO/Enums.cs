@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CCO
 {
-    public enum ChatType
+    public enum ChatType : ushort
     {
         Talk = 0x7D0,
         Whisper = 0x7D1,
