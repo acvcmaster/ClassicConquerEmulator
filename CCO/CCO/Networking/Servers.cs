@@ -95,6 +95,8 @@ namespace CCO.Networking
                 Client Cli;
                 if (ConnectedClients.TryGetValue(BitConverter.ToUInt32(Data, 8), out Cli))
                 {
+                    Cli.PacketCrypt = GameCrypt;
+                    Cli.PacketCrypt.GenerateKeys((int)BitConverter.ToUInt32(Data, 8), (int)BitConverter.ToUInt32(Data, 8));
                     ConnectedClients2.Add(arg2._socket, Cli);
                     Cli.InnerSocket = arg2._socket;
                     if (Cli.CharacterName == "None")
@@ -103,7 +105,6 @@ namespace CCO.Networking
                         Program.Report("Character creation sequence triggered for account '" + Cli.AccountName + "'."
                             , ConsoleColor.Magenta, ReportType.Networking);
 #endif
-#error IS_NOT_WORKING
                         Cli.SendGame(new Packets.Chat("SYSTEM", "ALL_USERS", "NEW_ROLE",
                             ChatColor.Default, ChatType.LoginInformation));
                     }

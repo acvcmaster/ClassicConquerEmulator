@@ -24,7 +24,7 @@ namespace CCO.Packets
             Writer.WriteUInt32((uint)Color, 4, ref _data);
             Writer.WriteUInt16((ushort)Type, 8, ref _data);
             Writer.WriteUInt32(1523, 12, ref _data);
-            Writer.WriteByte(4, 16, ref _data);
+            Writer.WriteByte(3, 16, ref _data);
             Writer.WriteByte((byte)From.Length, 17, ref _data);
             int Pos = 18;
             Writer.WriteString(From, Pos, ref _data);
@@ -33,7 +33,7 @@ namespace CCO.Packets
             Pos++;
             Writer.WriteString(To, Pos, ref _data);
             Pos += To.Length;
-            Pos += 2;
+            //Pos += 2;
             Writer.WriteByte((byte)Message.Length, Pos, ref _data);
             Pos++;
             Writer.WriteString(Message, Pos, ref _data);
