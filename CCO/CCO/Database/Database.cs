@@ -66,5 +66,9 @@ namespace CCO.Data
             }
             return false;
         }
+        public static bool CreateCharacter(string CharName, ushort Model, ushort Class)
+        {
+            return false;
+        }
     }
 }

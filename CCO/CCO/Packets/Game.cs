@@ -39,4 +39,41 @@ namespace CCO.Packets
             Writer.WriteString(Message, Pos, ref _data);
         }
     }
+    public class CreateCharacter : iPacket
+    {
+        byte[] _data;
+        public byte[] Data
+        {
+            get { return _data; }
+            set { _data = value; }
+        }
+        public CreateCharacter(byte[] data)
+        {
+            Data = data;
+        }
+        public string Name
+        {
+            get 
+            {
+                string name = "";
+
+                for (int a = 0; a < 16; a++)
+                    if (Data[20 + a] == 0)
+                        break;
+                    else
+                        name += (char)Data[20 + a];
+
+                name.Trim();
+                return name;
+            }
+        }
+        public ushort Model
+        {
+            get { return BitConverter.ToUInt16(Data, 52); }
+        }
+        public ushort Class
+        {
+            get { return BitConverter.ToUInt16(Data, 54); }
+        }
+    }
 }

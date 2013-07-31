@@ -28,5 +28,10 @@ namespace CCO.Networking
         public string AccountName = "";
         public string CharacterName = "";
         public GameCryptography PacketCrypt;
+        public void Disconnect()
+        {
+            Servers.Game.ConnectedClients2.Remove(InnerSocket);
+            InnerSocket.Disconnect(false);
+        }
     }
 }
