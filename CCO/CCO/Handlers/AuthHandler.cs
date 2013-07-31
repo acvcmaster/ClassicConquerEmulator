@@ -56,10 +56,15 @@ namespace CCO.Handlers
                             if (Servers.Game.ConnectedClients.ContainsKey(LoginID))
                                 goto roleback;
 
-                            Servers.Game.ConnectedClients.Add(LoginID, Cli);
-                            Database.SetClient(ref Cli, Account);
-                            AuthResponseOK Response = new AuthResponseOK(LoginID);
-                            Cli.SendAuth(Response);
+                            uint AccountID = Misc.Next();
+                            if (AccountID != LoginID)
+                            {
+                                Servers.Game.ConnectedClients.Add(LoginID, Cli);
+                                Database.SetClient(ref Cli, Account);
+                                AuthResponseOK Response = new AuthResponseOK(LoginID, AccountID);
+                                Cli.SendAuth(Response);
+                            }
+                            else goto roleback;
                             
                         }
                         else

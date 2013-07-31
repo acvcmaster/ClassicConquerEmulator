@@ -15,12 +15,12 @@ namespace CCO.Packets
             get { return _data; }
             set { _data = value; }
         }
-        public AuthResponseOK(uint LoginToken)
+        public AuthResponseOK(uint LoginToken, uint AccountID)
         {
             _data = new byte[32];
             Writer.WriteUInt16(32, 0, ref _data);
             Writer.WriteUInt16(1055, 2, ref _data);
-            Writer.WriteUInt32(LoginToken, 4, ref _data); /* Actually, account ID */
+            Writer.WriteUInt32(AccountID, 4, ref _data); 
             Writer.WriteUInt32(LoginToken, 8, ref _data);
             Writer.WriteString(Database.GameServerIP, 12, ref _data);
             Writer.WriteUInt16(Database.GamePort, 28, ref _data);
