@@ -30,20 +30,23 @@ namespace CCO.Handlers
                         string Account = Encoding.ASCII.GetString(Data, 4, 16).Trim('\0');
                         byte[] Password = new byte[16];
                         Buffer.BlockCopy(Data, 20, Password, 0, 16);
-                        /* OK so here's the thing : I don't need to know people's       */
-                        /* password in order to validate them, so what I'm basically    */
-                        /* going to do is : I'm not decrypting this password. This      */
-                        /* will save me some time and will make things safer for        */
-                        /* everyone. Not only I'm not going to decrypt it, but I'm also */
-                        /* going to hash this password. Of course, a generic password   */
-                        /* mechanism will have to be created to allow game master to    */
-                        /* access other people's account should needed.                 */
+                        /* OK so here's the thing : I don't need to know people's         */
+                        /* password in order to validate them, so what I'm basically      */
+                        /* going to do is : I'm not decrypting this password. This        */
+                        /* will save me some time and will make things safer for          */
+                        /* everyone. Not only I'm not going to decrypt it, but I'm also   */
+                        /* going to hash this password. Of course, a generic password     */
+                        /* mechanism will have to be created to allow game master to      */
+                        /* access other people's account should needed.                   */
+                        /* ***ACTUALLY*** I have to decrypt the password and then hash it */
 #if DEBUG
                         Program.Report("Login data recieved! Attempt to login on account " +
                             "'" + Account + "'. Awaiting database validation.", ConsoleColor.Red,
                             ReportType.Networking);
 #endif
                         HashAlgorithm Hasher = MD5.Create();
+                        string nPassword = PasswordCryptography.Decrypt(Password);
+                        Password = Encoding.ASCII.GetBytes(nPassword);
                         Password = Hasher.ComputeHash(Password);
                         if (Database.ValidadeLogin(ref Account, Password))
                         {
