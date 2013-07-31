@@ -12,6 +12,8 @@ namespace CCO.Data
         public static string GameServerIP = "127.0.0.1";
         public static ushort LoginPort = 9958;
         public static ushort GamePort = 5816;
+        public static List<char> InvalidCharacters = new List<char> { '[', ']', ' ', '(', ')', '{', '}' };
+        public static List<string> InvalidNames = new List<string> { "ADM", "System", "Administrator","Server"};
         public static bool ValidadeLogin(ref string Account, byte[] HashedPassword)
         {
 #if CREATE_NEW_ACCOUNTS
@@ -66,8 +68,54 @@ namespace CCO.Data
             }
             return false;
         }
-        public static bool CreateCharacter(string CharName, ushort Model, ushort Class)
+        public static string CreateCharacter(Client Cli, string CharName, ushort Model, ushort Class)
         {
+            if (!File.Exists("Database/Characters/" + CharName))
+            {
+                if (ValidName(CharName))
+                {
+                    /* Time to create file! */
+                    Cli.CharacterName = CharName;
+                    dynamic S = new StreamWriter("Database/Characters/" + CharName);
+                    dynamic B = new BinaryWriter(S.BaseStream);
+                    B.Write(Model);
+                    B.Write(Class);
+                    S.Close();
+                    B.Close();
+
+                    S = new StreamReader("Database/Accounts/" + Cli.AccountName);
+                    B = new BinaryReader(S.BaseStream);
+                    byte[] Password = B.ReadBytes(16);
+                    S.Close();
+                    B.Close();
+
+                    S = new StreamWriter("Database/Accounts/" + Cli.AccountName);
+                    B = new BinaryWriter(S.BaseStream);
+                    B.Write(Password);
+                    B.Write(Cli.CharacterName);
+                    S.Close();
+                    B.Close();
+
+                    return "ANSWER_OK";
+                }
+                else return "The name entered is of invalid length(Not 5~16) or contains invalid characters / forbidden words.";
+            }
+            else return "A character with this name already exists. Try another one.";
+        }
+        public static bool ValidName(string Name)
+        {
+            if (Name.Length >= 5 && Name.Length <= 16)
+            {
+                for (int a = 0; a < Name.Length; a++)
+                    if (InvalidCharacters.Contains(Name[a]))
+                        return false;
+
+                foreach (string K in InvalidNames)
+                    if (Name.ToLower().Contains(K.ToLower()))
+                        return false;
+
+                return true;
+            }
             return false;
         }
     }

@@ -1,5 +1,6 @@
 ﻿using CCO;
 using System;
+using System.IO;
 using CCO.Handlers;
 using CCO.Cryptography;
 using System.Net.Sockets;
@@ -100,6 +101,7 @@ namespace CCO.Networking
                     Cli.PacketCrypt.GenerateKeys((int)BitConverter.ToUInt32(Data, 4), (int)BitConverter.ToUInt32(Data, 8));
                     ConnectedClients2.Add(arg2._socket, Cli);
                     Cli.InnerSocket = arg2._socket;
+                roleback:
                     if (Cli.CharacterName == "None")
                     {
 #if DEBUG
@@ -112,7 +114,13 @@ namespace CCO.Networking
                     }
                     else
                     {
-                        /* Player has character */
+                        if (!File.Exists("Database/Characters/"+Cli.CharacterName))
+                        {
+                            Cli.CharacterName = "None";
+                            goto roleback;
+                        }
+                        /* Continue login */
+
                     }
                 }
             }
