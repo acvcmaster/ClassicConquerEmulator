@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -44,6 +44,8 @@
   <ItemGroup>
     <Compile Include="Cryptography\Game.cs" />
     <Compile Include="Cryptography\Password.cs" />
+    <Compile Include="Entities\Character.cs" />
+    <Compile Include="Entities\iEntity.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="Handlers\AuthHandler.cs" />
     <Compile Include="Handlers\GameHandler.cs" />

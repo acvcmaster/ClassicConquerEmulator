@@ -14,6 +14,10 @@ namespace CCO
         {
             return (uint)R.Next(0, int.MaxValue);
         }
+        public static int Next(int a, int b)
+        {
+            return R.Next(a, b);
+        }
         public static void BinaryDump(byte[] Data)
         {
             StreamWriter S = new StreamWriter("packetdump");

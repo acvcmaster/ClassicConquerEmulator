@@ -4,6 +4,7 @@ using CCO.Packets;
 using CCO.Cryptography;
 using System.Net.Sockets;
 using System.Text;
+using CCO.Entities;
 
 namespace CCO.Networking
 {
@@ -27,6 +28,7 @@ namespace CCO.Networking
         }
         public string AccountName = "";
         public string CharacterName = "";
+        public Character Player;
         public GameCryptography PacketCrypt;
         public void Disconnect()
         {

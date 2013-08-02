@@ -1,4 +1,6 @@
 ﻿using CCO;
+using CCO.Entities;
+using CCO.Data;
 using System;
 using System.IO;
 using CCO.Handlers;
@@ -120,7 +122,10 @@ namespace CCO.Networking
                             goto roleback;
                         }
                         /* Continue login */
-
+                        Cli.Player = Database.LoadCharacter(Cli.CharacterName);
+                        Cli.SendGame(new Packets.Chat("SYSTEM", "ALLUSERS", "ANSWER_OK",
+                            ChatColor.Default, ChatType.LoginInformation));
+                        Cli.SendGame(new Packets.CharacterInformation(Cli.Player));
                     }
                 }
             }

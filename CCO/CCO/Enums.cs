@@ -48,4 +48,32 @@ namespace CCO
         White = 0xFFFFFF,
         Default = 16777215
     }
+    public enum GeneralDataType : uint
+    {
+        ChangeAngle = 124,
+        ChangeAction = 126,
+
+        EnterPortal = 130,
+        ExitPortal = 131,
+        SetLocation = 137,
+        ConfirmItems = 138,
+        ConfirmFriends = 139,
+        RemoveEntity = 141,
+        Jump = 142,
+
+        Revive = 148,
+        DeleteCharacter = 149,
+        ConfirmSpells = 150,
+        ConfirmGuild = 151,
+        ChangePKMode = 152,
+        CompleteLogin = 153,
+
+        ConfirmMap = 164,
+        GetSurroundings = 170,
+        ViewEquipment = 173,
+
+        Dialog = 186,
+
+        None = 0
+    }
 }
