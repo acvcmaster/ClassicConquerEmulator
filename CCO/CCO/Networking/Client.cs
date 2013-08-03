@@ -11,6 +11,7 @@ namespace CCO.Networking
     public class Client
     {
         public Socket InnerSocket;
+        public bool InGame = false;
         public AuthCryptography AuthCrypt = new AuthCryptography();
         public void SendAuth(iPacket P)
         {

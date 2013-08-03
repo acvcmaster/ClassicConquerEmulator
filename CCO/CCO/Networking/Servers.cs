@@ -126,6 +126,7 @@ namespace CCO.Networking
                         Cli.SendGame(new Packets.Chat("SYSTEM", "ALLUSERS", "ANSWER_OK",
                             ChatColor.Default, ChatType.LoginInformation));
                         Cli.SendGame(new Packets.CharacterInformation(Cli.Player));
+                        Cli.InGame = true;
                     }
                 }
             }

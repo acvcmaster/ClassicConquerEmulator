@@ -3,6 +3,7 @@ using System;
 using CCO.Data;
 using CCO.Networking;
 using CCO.Cryptography;
+using System.IO;
 
 namespace CCO.Handlers
 {
@@ -32,7 +33,6 @@ namespace CCO.Handlers
                             #region Complete login
                             case GeneralDataType.CompleteLogin:
                                 {
-
                                     break;
                                 }
                             #endregion
@@ -48,6 +48,15 @@ namespace CCO.Handlers
                                     break;
                                 }
                             #endregion
+                            #region Delete char
+                            case GeneralDataType.DeleteCharacter:
+                                {
+                                    Cli.Disconnect();
+                                    if (File.Exists("Database/Characters/" + Cli.Player.Name))
+                                        File.Delete("Database/Characters/" + Cli.Player.Name);
+                                    break;
+                                }
+                            #endregion
                         }
                         break;
                     }
@@ -59,7 +68,7 @@ namespace CCO.Handlers
                             ConsoleColor.Yellow, ReportType.Networking);
 #endif
                         Cli.SendGame(new Packets.Chat("SYSTEM", Cli.Player.Name, "Unhandled packet '" + Type + "'",
-    ChatColor.Green, ChatType.Service));
+    ChatColor.Green, ChatType.Talk));
                         break;
                     }
             }

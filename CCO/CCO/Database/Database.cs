@@ -97,6 +97,8 @@ namespace CCO.Data
                         B.Write((byte)1); // Level
                         B.Write(Misc.Next()); // UID
                         B.Write(Avatar);
+                        B.Write((byte)Misc.Next(3, 9));
+                        B.Write((byte)Misc.Next(30, 32)); // 30, 56
                         S.Close();
                         B.Close();
 
@@ -154,6 +156,8 @@ namespace CCO.Data
                 B.Write(Char.Level); // Level
                 B.Write(Char.UID);
                 B.Write(Char.Avatar);
+                B.Write(Char.HairColor);
+                B.Write(Char.HairStyle);
                 S.Close();
                 B.Close();
             }
@@ -178,6 +182,8 @@ namespace CCO.Data
                 Result.Level = B.ReadByte();
                 Result.UID = B.ReadUInt32();
                 Result.Avatar = B.ReadUInt16();
+                Result.HairColor = B.ReadByte();
+                Result.HairStyle = B.ReadByte();
                 Result.Name = Name;
                 S.Close();
                 B.Close();

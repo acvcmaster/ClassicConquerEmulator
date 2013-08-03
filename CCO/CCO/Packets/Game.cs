@@ -90,7 +90,7 @@ namespace CCO.Packets
             Writer.WriteUInt16(1006, 2, ref _data);
             Writer.WriteUInt32(A.UID, 4, ref _data);
             Writer.WriteUInt32(A.Mesh, 8, ref _data); 
-            Writer.WriteUInt16(0, 12, ref _data); // Hair Style
+            //Writer.WriteUInt16(A.Hair, 12, ref _data); // Hair Style
             Writer.WriteUInt32(0, 16, ref _data); // Gold
             Writer.WriteUInt32(0, 20, ref _data); // EXP
             /* 
@@ -105,7 +105,7 @@ namespace CCO.Packets
             */
             Writer.WriteByte(A.Level, 56, ref _data);
             Writer.WriteByte(A.Job, 57, ref _data);
-            Writer.WriteByte(0, 59, ref _data); // Reborn
+            Writer.WriteByte(2, 59, ref _data); // Reborn
             Writer.WriteByte(1, 60, ref _data); // bool : display names
             Writer.WriteByte(2, 61, ref _data);
             Writer.WriteByte((byte)A.Name.Length, 62, ref _data);

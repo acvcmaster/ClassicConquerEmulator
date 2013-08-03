@@ -7,7 +7,7 @@ namespace CCO.Entities
     {
         ushort x, y, map,
             model, avatar;
-        byte level, job;
+        byte level, job, hairColor, hairStyle;
         uint uid;
         string name;
         public ushort X
@@ -29,6 +29,20 @@ namespace CCO.Entities
         {
             get { return model; }
             set { model = value; }
+        }
+        public byte HairColor
+        {
+            get { return hairColor; }
+            set { hairColor = value; }
+        }
+        public byte HairStyle
+        {
+            get { return hairStyle; }
+            set { hairStyle = value; }
+        }
+        public ushort Hair
+        {
+            get { return ushort.Parse(HairColor.ToString() + HairStyle.ToString()); }
         }
         public string Name
         {
